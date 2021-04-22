@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_planner_professional,planner.professional,model_planner_professional,group_planner_user,1,1,1,1
+access_planner_spot,planner.spot,model_planner_spot,group_planner_user,1,1,1,1
+access_planner_professional_availability,planner.professional._availability,model_planner_professional_availability,group_planner_user,1,1,1,1
+access_planner_planner,planner.planner,model_planner_planner,group_planner_user,1,1,1,1
+access_planner_planner_line,planner.planner.line,model_planner_planner_line,group_planner_user,1,1,1,1
+

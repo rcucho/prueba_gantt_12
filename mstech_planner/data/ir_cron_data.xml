@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="ir_cron_spot_generation" model="ir.cron">
+            <field name="name">Generación de Cupos</field>
+            <field name="model_id" ref="model_planner_professional_availability"/>
+            <field name="interval_number" eval="1"/>
+            <field name="interval_type">days</field>
+            <field name="active" eval="True"/>
+            <field name="numbercall">-1</field>
+            <field name="state">code</field>
+            <field name="code">
+model.spot_creation()
+            </field>
+        </record>
+    </data>
+</odoo>
