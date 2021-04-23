@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="einvoice_account_invoice_inherit">
+            <field name="name">einvoice_account.invoice.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <button name="preview_invoice" position="before">
+                    <button name="action_create_customer_debit_note" string="Agregar nota de debito" type="object" class="btn btn-primary" attrs="{'invisible':['|',('state','in',['draft','cancel']),('edocument_type','not in',[2,4])]}"/>
+                    <button name="action_invoice_send_sunat" string="Enviar a SUNAT" type="object" class="btn btn-primary" attrs="{'invisible':['|',('state','in',['draft','cancel']),('cod_sunat','=','0')]}"/>
+                </button>
+                <button name="%(account.action_account_invoice_refund)d" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|','|',('type', '=', 'out_refund'), ('state', 'not in', ('open','in_payment','paid')), ('edocument_type','in',[8,9])]}</attribute>
+                </button>
+                <field name="journal_id" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </field>
+                <field name="type" position="replace"/>
+                <field name="fiscal_position_id" position="after">
+                    <field name="type"/>
+                </field>
+                <field name="date_invoice" position="after">
+                    <field name="shop_id" options="{'no_create': True,'no_open': True}"/>
+                </field>
+                <field name="user_id" position="after">
+                    <field name="unsigned_xml" invisible="1"/>
+                    <field name="signed_xml" invisible="1"/>
+                    <field name="digest_value" invisible="1"/>
+                    <field name="cod_sunat" invisible="1"/>
+                    <field name="sunat_answer" readonly="1"/>
+                    <field name="picking_number" invisible="1"/>
+                </field>
+                <field name="payment_term_id" position="after">
+                    <field name="einvoice_journal_id" options="{'no_create_edit': True,'no_open':True}" attrs="{'readonly':[('move_name','!=',False)]}"/>
+                    <field name="edocument_type" invisible="1"/>
+                    <field name="edocument_type" options="{'no_create_edit': True, 'no_open':True}" readonly="1"/>
+                    <field name="credit_note_type" invisible="1"/>
+                    <field name="credit_note_type" options="{'no_create_edit': True, 'no_open':True}" attrs="{'invisible':['|',('type','not in',['out_refund']),('edocument_type','not in',[8])]}" readonly="1"/>
+                    <field name="debit_note_type" invisible="1"/>
+                    <field name="debit_note_type" options="{'no_create_edit': True, 'no_open':True}" attrs="{'invisible':['|',('type','in',['out_refund']),('edocument_type','not in',[9])]}" readonly="1"/>
+                </field>  
+                <page name="other_info" position="before">
+                    <page name="origin_document" string="Origin Document">
+                        <group>
+                            <group>
+                                <field name="origin_document_id" domain="[('partner_id','=',partner_id),('type','=','out_invoice')]" options="{'no_create':True}"/>
+                            </group>
+                            <group>
+                                 <field name="origin_document_serie"/>
+                                 <field name="origin_document_number"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page name="einvoice_data" string="E-invoice data">
+                        <group name="einvoice">
+                            <group name="values" string="Values">
+                                <field name="einv_amount_base"/>
+                                <field name="einv_amount_exonerated"/>
+                                <field name="einv_amount_unaffected"/>
+                                <field name="einv_amount_igv"/>
+                                <field name="einv_amount_others"/>
+                            </group>
+                            <group name="information" string="Information">
+                                <field name="einv_serie"/>
+                                <field name="einv_number"/>
+                                <field name="igv_percent"/>
+                            </group>
+                        </group>
+                    </page>
+                </page>
+                <xpath expr="//field[@name='invoice_line_ids']//tree/field[@name='invoice_line_tax_ids']" position="before">
+                    <field name="igv_type" options="{'no_create_edit': True,'no_open':True}"/>
+                    <!-- <xpath expr="//field[@name='invoice_line_ids']//tree/field[@name='invoice_line_tax_ids']//tree/field[@name='igv_type']" options="{'no_create_edit': True,'no_open':True}"/> -->
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']//tree/field[@name='invoice_line_tax_ids']" position="after">
+                    <field name="igv_amount"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']//tree/field[@name='price_subtotal']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']//tree/field[@name='price_subtotal']" position="before">
+                    <field name="price_base"/>
+                    <field name="free_product"/>
+                </xpath>
+                <xpath expr="//field[@name='tax_line_ids']//tree/field[@name='name']" position="after">
+                    <field name="einv_type_tax"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']//tree" position="attributes">
+                    <attribute name="decoration-success">free_product==True</attribute>
+                    <attribute name="decoration-it">free_product==True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="attributes">
+                        <attribute name="invisible">True</attribute>
+                </xpath>
+                <field name="amount_untaxed" position="after">
+                    <field name="amount_base"/>
+                    <field name="einv_amount_free"/>
+                    <field name="amount_discount"/>
+                    <field name="global_discount"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id="invoice_tree_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.tree.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+                <field name="number" position="after">
+                    <field name="move_name" string="Number"/>
+                </field>
+                <field name="number" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+            </field>
+        </record>
+        
+        <record id="view_invoice_line_inherit_form" model="ir.ui.view">
+            <field name="name">account.invoice.line.form</field>
+            <field name="model">account.invoice.line</field>
+            <field name="inherit_id" ref="account.view_invoice_line_form"/>
+            <field name="arch" type="xml">
+                <field name="account_id" position="after">
+                    <field name="price_unit_excluded"/>
+                    <field name="igv_type"/>
+                </field>
+                <field name="invoice_line_tax_ids" position="after">
+                    <field name="price_unit_included"/>
+                    <field name="igv_amount"/>
+                    <field name="amount_discount"/>
+                    <field name="price_total"/>
+                    <field name="price_subtotal"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

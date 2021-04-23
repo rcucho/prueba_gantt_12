@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.ui.view" id="view_account_journal_form_inherit">
+		<field name="name">view_account_journal_form_inherit</field>
+		<field name="model">account.journal</field>
+		<field name="inherit_id" ref="account.view_account_journal_form"/>
+		<field name="arch" type="xml">
+			<field name="type" position="after">
+                <field name="shop_id" options="{'no_create': True,'no_open': True}"/>
+                <field name="edocument_type" attrs="{'required':[('type','in',['sale'])], 'invisible':[('type','not in',['sale'])]}"/>
+                <!-- <field name="edocument_credit" attrs="{'required':[('type','in',['sale'])], 'invisible':[('type','not in',['sale'])]}"/>
+                <field name="edocument_credit" attrs="{'required':[('type','in',['sale']),('edocument_type','in',[8])], 'invisible':[('id','!=',0)]}"/> -->
+                <field name="edocument_credit" attrs="{'required':[('id','=',0)], 'invisible':['|',('type','not in',['sale']),('edocument_type','not in',[8])]}"/>
+                <!-- <field name="edocument_debit" attrs="{'required':[('type','in',['sale'])], 'invisible':[('type','not in',['sale'])]}"/>
+                <field name="edocument_debit" attrs="{'required':[('type','in',['sale']),('edocument_type','in',[9])], 'invisible':[('id','!=',0)]}"/> -->
+                <field name="edocument_debit" attrs="{'required':[('id','=',0)], 'invisible':['|',('type','not in',['sale']),('edocument_type','not in',[9])]}"/>
+            </field>
+		</field>
+	</record>
+
+    <record id="view_tax_form_inherit" model="ir.ui.view">
+        <field name="name">account.tax.form</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="einv_type_tax"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_einvoice_25_tree" model="ir.ui.view">
+            <field name="name">einvoice.25.tree</field>
+            <field name="model">einvoice.25</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0" delete="0" string="Código de Producto SUNAT">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_einvoice_25_form" model="ir.ui.view">
+            <field name="name">einvoice.25.form</field>
+            <field name="model">einvoice.25</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Código de Producto SUNAT">
+                    <group>
+                        <group>
+                            <field name="code" readonly="1"/>
+                            <field name="name" readonly="1"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="einvoice_25_action">
+            <field name="name">Códigos de Producto SUNAT</field>
+            <field name="res_model">einvoice.25</field>
+            <field name="view_mode">tree</field>
+        </record>
+    </data>
+</odoo>

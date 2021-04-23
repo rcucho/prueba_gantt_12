@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_merge_partner_invoice" model="ir.ui.view">
+            <field name="name">Merger Partner Invoice</field>
+            <field name="model">account.invoice.merge</field>
+            <field name="arch" type="xml">
+                <form string="Merge Invoices">
+                    <group>
+                        <p>
+                            Por favor tenga en cuenta:
+                            <br />
+                            <br />
+                            Los documentos solo podrán ser mezclados si:
+                            <br />
+                            * Están en borrador
+                            <br />
+                            * Son de una aseguradora
+                            <br />
+                            * Pertenecen a la misma aseguradora
+                            <br/>
+                        </p>
+                    </group>
+                    <group>
+                        <field name='date_invoice'/>
+                        <field name='journal_id' required='1'/>
+                        <field name='company_id'/>
+                    </group>
+                    <footer>
+                        <button name="merge_account_invoice" string="Merge Invoices" type="object" class="oe_highlight" />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Merge Invoices" 
+            res_model="account.invoice.merge"
+            src_model="account.invoice" 
+            view_mode="form" 
+            target="new" 
+            multi="True"
+            key2="client_action_multi" 
+            id="action_view_invoice_merge"/>
+        
+        <record id="view_merge_account_invoice_filter" model="ir.ui.view">
+            <field name="name">merge.account.invoice.select</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <group expand="0" string="Group By">
+                        <filter name="aseguradora" string="Aseguradora" context="{'group_by':'partner_id'}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

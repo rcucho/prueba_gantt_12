@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_einvoice_25,einvoice.25,model_einvoice_25,base.group_user,1,0,0,0
+access_einvoice_25_manager,einvoice.25.manager,model_einvoice_25,base.group_erp_manager,1,1,1,1
+access_einvoice_25_account_manager,einvoice.25.manager,model_einvoice_25,account.group_account_manager,1,1,1,1
