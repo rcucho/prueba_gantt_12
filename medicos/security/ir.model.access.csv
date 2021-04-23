@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_medicos_honorarios,medicos.honorarios,model_medicos_honorarios,,1,1,1,1
+access_medicos_honorarios_medicos,medicos.honorarios.medicos,model_medicos_honorarios_medicos,,1,1,1,1
+access_medicos_honorarios_visitadoras,medicos.honorarios.visitadoras,model_medicos_honorarios_visitadoras,,1,1,1,1
+access_res_partner_visitador,res.partner.visitador,model_res_partner_visitador,,1,1,1,1

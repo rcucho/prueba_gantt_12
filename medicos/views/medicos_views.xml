@@ -1,0 +1,154 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="medicos_view_partner_form">
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="x_studio_tipo" position="after">
+                    <field name="es_paciente" invisible="1"/>
+                    <field name="es_medico" invisible="1"/>
+                    <field name="es_aseguradora" invisible="1"/>
+		    <field name="es_visitador" invisible="1"/>
+                </field>
+                <page name='internal_notes' position="after">
+                    <page name='visitadoras' string="Honorario y visitadoras">
+                        <field name="vis_id" domain="[['job_id','=',3],['active','=',True]]"/>
+                        <field name="porcentaje_honor"/>
+                        <field name="vis_ids" invisible="1"/>
+                    </page>
+                </page>
+            </field>
+        </record>
+        
+        <!--Vista de Create Import-->
+        <record id="view_honorarios_tree" model="ir.ui.view">
+            <field name="name">Honorarios</field>
+            <field name="model">medicos.honorarios</field>
+            <field name="arch" type="xml">
+                <tree string="Honorarios">
+                    <field name="sale_order_id"/>
+                    <field name="honor_fecha"/>
+                    <field name="honor_med_id"/>
+                    <field name="honor_vis_id" invisible="1"/>
+                    <field name="honor_med_monto"/>
+                    <field name="honor_vis_monto" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <!--Botón Create-->
+        <record id="view_honorarios_form" model="ir.ui.view">
+            <field name="name">Honorarios</field>
+            <field name="model">medicos.honorarios</field>
+            <field name="arch" type="xml">
+                <form string="Honorarios">
+                    <group>
+                        <field name="sale_order_id" readonly="1"/>
+                        <field name="honor_fecha" readonly="1"/>
+                        <field name="honor_med_id" domain="[['es_medico','=',True]]"/>
+                        <field name="honor_vis_id" domain="[['job_id','=',3],['active','=',True]]"/>
+                        <field name="honor_med_monto"/>
+                        <field name="honor_vis_monto"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <!--Agrupar-->
+        <record model="ir.actions.act_window" id="honorarios_action">
+            <field name="name">Honorarios</field>
+            <field name="res_model">medicos.honorarios</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <!--Vista de Create Import-->
+        <record id="view_medicos_mensual_tree" model="ir.ui.view">
+            <field name="name">Honorarios mensuales de médicos</field>
+            <field name="model">medicos.honorarios.medicos</field>
+            <field name="arch" type="xml">
+                <tree string="Listado de honorarios mensuales de médicos" create="false" delete="false">
+                    <field name="med_id"/>
+                    <field name="year_honor"/>
+                    <field name="month_honor"/>
+                    <field name="honor_mes"/>
+                </tree>
+            </field>
+        </record>
+        <!--Botón Create-->
+        <record id="view_medicos_mensual_form" model="ir.ui.view">
+            <field name="name">Honorarios mensuales de médicos</field>
+            <field name="model">medicos.honorarios.medicos</field>
+            <field name="arch" type="xml">
+                <form string="Listado de honorarios mensuales de médicos" create="false" edit="false" delete="false">
+                    <group>
+                        <field name="med_id" readonly="1"/>
+                        <field name="fecha_honor" invisible="1"/>
+                        <field name="fecha_ini" invisible="1"/>
+                        <field name="fecha_fin" invisible="1"/>
+                        <field name="year_honor" readonly="1"/>
+                        <field name="month_honor" readonly="1"/>
+                        <field name="honor_mes" readonly="1"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <!--Agrupar-->
+        <record model="ir.actions.act_window" id="medicos_mensual_action">
+            <field name="name">Honorarios mensuales de médicos</field>
+            <field name="res_model">medicos.honorarios.medicos</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <!--Vista de Create Import-->
+        <record id="view_visitadores_mensual_tree" model="ir.ui.view">
+            <field name="name">Honorarios mensuales de médicos</field>
+            <field name="model">medicos.honorarios.visitadoras</field>
+            <field name="arch" type="xml">
+                <tree string="Listado de honorarios mensuales de visitadores" create="false" delete="false">
+                    <field name="vis_id"/>
+		    <field name="honor_year"/>
+                    <field name="month_honor"/>
+                    <field name="honor_mes"/>
+                </tree>
+            </field>
+        </record>
+        <!--Botón Create-->
+        <record id="view_visitadores_mensual_form" model="ir.ui.view">
+            <field name="name">Honorarios mensuales de visitadores</field>
+            <field name="model">medicos.honorarios.visitadoras</field>
+            <field name="arch" type="xml">
+                <form string="Listado de honorarios mensuales de visitadores" create="false" edit="false" delete="false">
+                    <group>
+                        <field name="vis_id" readonly="1"/>
+                        <field name="fecha_honor" invisible="1"/>
+                        <field name="fecha_ini" invisible="1"/>
+                        <field name="fecha_fin" invisible="1"/>
+			<field name="year_honor" invisible="1"/>
+			<field name="honor_year" readonly="1"/>
+                        <field name="month_honor" readonly="1"/>
+                        <field name="honor_mes" readonly="1"/>
+                        <field name="currency_id" invisible="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <!--Agrupar-->
+        <record model="ir.actions.act_window" id="visitadores_mensual_action">
+            <field name="name">Honorarios mensuales de visitadores</field>
+            <field name="res_model">medicos.honorarios.visitadoras</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <!-- Menús -->
+        <menuitem name="Médico" id="medicos_menu" parent="account.menu_finance" sequence="3"/>
+        <menuitem name="Honorarios" id="honorarios_menu" parent="medicos_menu" action="honorarios_action" sequence="4"/>
+        <menuitem name="Honorarios mensuales" id="honorarios_mensual_menu" parent="medicos_menu" sequence="5"/>
+        <menuitem name="Médicos" id="medicos_mensual_menu" parent="honorarios_mensual_menu" action="medicos_mensual_action" sequence="1"/>
+        <menuitem name="Visitadoras" id="visitadores_mensual_menu" parent="honorarios_mensual_menu" action="visitadores_mensual_action" sequence="2"/>
+    </data>
+</odoo>
