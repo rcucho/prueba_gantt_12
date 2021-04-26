@@ -13,7 +13,7 @@
 
         <!-- Add gantt view mode to the project.task dashboard -->
         <record id="calendar.action_view_event" model="ir.actions.act_window">
-            <field name="view_mode">kanban,tree,form,gantt</field>
+            <field name="view_mode">kanban,tree,form,gantt,calendar,pivot,graph,activity</field>
             <field name="context">{'default_event': 'name'}</field>
         </record>
 
