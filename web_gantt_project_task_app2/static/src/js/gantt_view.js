@@ -20,8 +20,8 @@ var GanttView = AbstractView.extend({
 	display_name: _lt('Gantt'),
 	template: "GanttView",
 	jsLibs: [
-			"/web_gantt_project_task_app/static/lib/anychart-core.min.js",
-			"/web_gantt_project_task_app/static/lib/anychart-gantt.min.js"
+			"/web_gantt_project_task_app2/static/lib/anychart-core.min.js",
+			"/web_gantt_project_task_app2/static/lib/anychart-gantt.min.js"
 		],
 	icon: 'fa-tasks',
 	config: {
