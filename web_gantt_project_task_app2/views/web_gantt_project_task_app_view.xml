@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+
+        <!-- Gantt view -->
+        <record id="calendar_event_gantt_view" model="ir.ui.view">
+            <field name="name">calendar.event.gantt</field>
+            <field name="model">calendar.event</field>
+            <field name="arch" type="xml">
+                <gantt date_stop="stop" date_start="start" progress="progress" string="Project task">
+                </gantt>
+            </field>
+        </record>
+
+        <!-- Add gantt view mode to the project.task dashboard -->
+        <record id="calendar.action_view_event" model="ir.actions.act_window">
+            <field name="view_mode">kanban,tree,form,gantt</field>
+            <field name="context">{}</field>
+        </record>
+
+    </data>
+</odoo>
