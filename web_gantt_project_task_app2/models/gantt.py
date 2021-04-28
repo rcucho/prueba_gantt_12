@@ -19,36 +19,24 @@ class GanttView(models.Model):
 		all_dates = []
 
 		event_ids = self.env['calendar.event'].search([])
-		for event in event_ids:
-			children = []
+		for event in event_ids.filtered(lambda event_fil: event_fil.start > datetime.datetime.now()):
 			all_dates = []
-			for event_fil in event.id.filtered(lambda event_fil: event_fil.start > datetime.datetime.now()):
-				actualStart = ''
-				actualEnd = ''
-				if event_fil.start:
-					actualStart = event_fil.start.strftime("%Y-%m-%d")
-					all_dates.append(actualStart)
+			actualStart = ''
+			actualEnd = ''
+			if event_fil.start:
+				actualStart = event_fil.start.strftime("%Y-%m-%d")
+				all_dates.append(actualStart)
 
-				if event_fil.stop:
-					#child_date_stop = datetime.strptime(event_fill.stop.strftime("%Y-%m-%d"),  "%Y-%m-%d").date()
-					#final_date_deadline = child_date_deadline + timedelta(days=1)
-					actualEnd = event_fil.stop.strftime("%Y-%m-%d")
-					all_dates.append(actualEnd)
+			if event_fil.stop:
+				actualEnd = event_fil.stop.strftime("%Y-%m-%d")
+				all_dates.append(actualEnd)
 
-				if actualStart and actualEnd :
-					children.append({
-						'id': event_fil.id,
-						'name': event_fil.name,
-						'actualStart': actualStart,
-						'actualEnd': actualEnd,
-					})
-			if children :
+			if actualStart and actualEnd :
 				all_date_filtereds.append({
 					'id': event.id,
 					'name': event.name,
 					'actualStart': min(all_dates),
 					'actualEnd'  : max(all_dates),
-					'children': children
 				})
-		print("njjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj",all_date_filtereds)
+		print("waaaaaaa",all_date_filtereds)
 		return all_date_filtereds
