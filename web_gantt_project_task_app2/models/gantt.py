@@ -18,8 +18,9 @@ class GanttView(models.Model):
 		all_date_filtereds = []
 		all_dates = []
 
+		today=datetime.datetime.now() 
 		event_ids = self.env['calendar.event'].search([])
-		for event in event_ids.filtered(lambda event_fil: event_fil.start > datetime.date.today()):
+		for event in event_ids.filtered(lambda event_fil: event_fil.start > today):
 			all_dates = []
 			actualStart = ''
 			actualEnd = ''
