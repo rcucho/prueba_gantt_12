@@ -141,6 +141,7 @@ var rpc = require('web.rpc');
 				chart.getTimeline().tooltip().format(
 				  "<span style='font-weight:600;font-size:12pt'>" +
 				  "{%start}{dateTimeFormat:dd MMM} – " +
+				  "{%duration} - " +
 				  "{%end}{dateTimeFormat:dd MMM}</span><br><br>" 
 				);
 
