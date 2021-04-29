@@ -25,11 +25,11 @@ class GanttView(models.Model):
 			actualStart = ''
 			actualEnd = ''
 			if event.start:
-				actualStart = event.start.strftime("%Y-%m-%d-%h-%m")
+				actualStart = event.start.strftime("%Y-%m-%d-%h")
 				all_dates.append(actualStart)
 
 			if event.stop:
-				actualEnd = event.stop.strftime("%Y-%m-%d-%h-%m")
+				actualEnd = event.stop.strftime("%Y-%m-%d-%h")
 				all_dates.append(actualEnd)
 
 			if actualStart and actualEnd :
