@@ -20,16 +20,16 @@ class GanttView(models.Model):
 
 		today = datetime.now() 
 		event_ids = self.env['calendar.event'].search([])
-		for event in event_ids.filtered(lambda event_fil: event_fil.start > today):
+		for event in event_ids.filtered(lambda event: event.start > today):
 			all_dates = []
 			actualStart = ''
 			actualEnd = ''
-			if event_fil.start:
-				actualStart = event_fil.start.strftime("%Y-%m-%d")
+			if event.start:
+				actualStart = event.start.strftime("%Y-%m-%d")
 				all_dates.append(actualStart)
 
-			if event_fil.stop:
-				actualEnd = event_fil.stop.strftime("%Y-%m-%d")
+			if event.stop:
+				actualEnd = event.stop.strftime("%Y-%m-%d")
 				all_dates.append(actualEnd)
 
 			if actualStart and actualEnd :
