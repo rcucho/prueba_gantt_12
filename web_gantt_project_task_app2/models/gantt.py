@@ -39,5 +39,5 @@ class GanttView(models.Model):
 					'actualStart': min(all_dates),
 					'actualEnd'  : max(all_dates),
 				})
-		print("hiiiiii",all_date_filtereds)
+		print("holaaa",all_date_filtereds)
 		return all_date_filtereds
