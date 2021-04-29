@@ -92,7 +92,7 @@ var rpc = require('web.rpc');
 				column_2.labels().format(function() {
 
 				  var numChildren = this.item.numChildren();
-				  var duration = (this.end - this.start) / 1000 / 3600 / 24;
+				  var duration = (this.end - this.start) / 1000 / 3600; // / 24;
 				  var customField = " ";
 				  if (this.getData("custom_field")) {
 					customField = "<span style='font-weight:bold;font-size:13px;'>" +
